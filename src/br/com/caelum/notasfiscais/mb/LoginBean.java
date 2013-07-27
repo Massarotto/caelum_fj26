@@ -25,6 +25,10 @@ public class LoginBean {
 		return "login?faces-redirect=true";
 	}
 	
+	public boolean isLogado() {
+		return usuario.getLogin() != null;
+	}
+	
 	public Usuario getUsuario() {
 		return usuario;
 	}

@@ -8,7 +8,10 @@
 	
 	<lifecycle>
 		<phase-listener>
-			br.com.caelum.notasfiscais.CicloDeVidaListener
+			br.com.caelum.notasfiscais.listener.CicloDeVidaListener
+		</phase-listener>
+		<phase-listener>
+			br.com.caelum.notasfiscais.listener.AutorizadorListener
 		</phase-listener>
 	</lifecycle>
 </faces-config>
