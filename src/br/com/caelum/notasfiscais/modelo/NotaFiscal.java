@@ -51,6 +51,11 @@ public class NotaFiscal {
 		this.data = data;
 	}
 
+	public void addItens(Item item) {
+		this.itens.add(item);
+		item.setNotaFiscal(this);
+	}
+	
 	public List<Item> getItens() {
 		return itens;
 	}
