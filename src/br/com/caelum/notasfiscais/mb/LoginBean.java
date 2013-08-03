@@ -15,7 +15,7 @@ public class LoginBean {
 	public String efetuaLogin() {
 		UsuarioDAO dao = new UsuarioDAO();
 		if(dao.existe(usuario)) {
-			return "produto?faces-redirect=true";
+			return "notafiscal?faces-redirect=true";
 		}
 		return "login?faces-redirect=true";
 	}
