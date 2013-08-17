@@ -1,32 +1,45 @@
 package br.com.caelum.notasfiscais.mb;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import java.io.Serializable;
+
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import br.com.caelum.notasfiscais.dao.UsuarioDAO;
 import br.com.caelum.notasfiscais.modelo.Usuario;
 
-@ManagedBean
-@SessionScoped
-public class LoginBean {
+@Named
+@RequestScoped
+public class LoginBean implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private UsuarioLogado usuarioLogado;
+	
 	private Usuario usuario = new Usuario();
+	@Inject
+	private UsuarioDAO dao;
 	
 	public String efetuaLogin() {
-		UsuarioDAO dao = new UsuarioDAO();
-		if(dao.existe(usuario)) {
+		boolean loginValido = dao.existe(usuario);
+		if(loginValido) {
+			usuarioLogado.setUsuario(usuario);
 			return "notafiscal?faces-redirect=true";
+		}else {
+			usuarioLogado.setUsuario(null);
+			return "login?faces-redirect=true";
 		}
-		return "login?faces-redirect=true";
 	}
 	
 	public String efetuaLogout() {
-		this.usuario = new Usuario();
+		usuarioLogado.setUsuario(null);
 		return "login?faces-redirect=true";
 	}
 	
 	public boolean isLogado() {
-		return usuario.getLogin() != null;
+		return usuarioLogado.isLogado();
 	}
 	
 	public Usuario getUsuario() {
